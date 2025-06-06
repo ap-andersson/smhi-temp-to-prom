@@ -5,4 +5,4 @@ COPY prom-smhi.py .
 EXPOSE 80
 
 # Change the URL here for different locations. This default is Linköping, Sweden
-CMD ["python3", "-u", "prom-smhi.py", "80", "https://opendata-download-metobs.smhi.se/api/version/latest/parameter/1/station/85240/period/latest-hour/data.json"]
+CMD ["python3", "-u", "prom-smhi.py"]
