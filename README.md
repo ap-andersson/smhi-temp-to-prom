@@ -18,7 +18,7 @@ GET https://opendata-download-metobs.smhi.se/api/version/latest/parameter/1.json
 ```
 services:
   smhi-temp:
-    image: FROM ghcr.io/ap-andersson/smhi-temp-to-prom:main
+    image: ghcr.io/ap-andersson/smhi-temp-to-prom:main
     container_name: smhi-temp
     ports:
       - 8888:80
