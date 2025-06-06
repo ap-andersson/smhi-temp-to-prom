@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.9.23-slim-bookworm
 WORKDIR /app
 RUN pip3 install prometheus_client requests
 COPY prom-smhi.py .
