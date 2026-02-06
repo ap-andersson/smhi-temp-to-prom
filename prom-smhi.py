@@ -19,7 +19,7 @@ prom.REGISTRY.unregister(prom.PROCESS_COLLECTOR)
 prom.REGISTRY.unregister(prom.PLATFORM_COLLECTOR)
 prom.REGISTRY.unregister(prom.GC_COLLECTOR)
 
-tempGauge = Gauge('linkeboda_temp', 'Temp last hour malmen')
+tempGauge = Gauge('smhi_temp', 'Temp last hour')
 
 def collect(endpoint):
 
