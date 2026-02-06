@@ -1,0 +1,10 @@
+services:
+  smhi-temp:
+    container_name: smhi-temp
+    image: ghcr.io/ap-andersson/smhi-temp-to-prom:main
+    ports:
+      - 9787:80
+    environment:
+      PORT: 80
+      SMHI_ENDPOINT: "https://opendata-download-metobs.smhi.se/api/version/latest/parameter/1/station/85240/period/latest-hour/data.json"
+    restart: unless-stopped
