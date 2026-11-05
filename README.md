@@ -18,13 +18,14 @@ GET https://opendata-download-metobs.smhi.se/api/version/latest/parameter/1.json
 
 | Variable | Required | Default | Description |
 | --- | --- | --- | --- |
-| `PROM_PORT` | yes | — | Port the metrics endpoint listens on |
+| `PROM_PORT` | no | `8080` | Port the metrics endpoint listens on |
 | `SMHI_STATION` | yes | — | SMHI station id, e.g. `85240` |
 | `SMHI_PARAMETER` | no | `1` | metobs parameter (1 = hourly air temperature) |
 | `SMHI_ENDPOINT` | no | — | Full URL, overrides station/parameter |
 
 `PROM_PORT` and `SMHI_STATION` can also be passed as the first two positional
-arguments instead.
+arguments instead. Note that passing the station positionally means passing the
+port first, so the environment variables are usually easier.
 
 ## Metrics
 
@@ -57,9 +58,9 @@ services:
     ports:
       - 9787:8080
     environment:
-      PROM_PORT: 8080
       SMHI_STATION: 85240
     restart: unless-stopped
 ```
 
-The container runs as `nobody`, so the metrics port must be above 1024.
+The container runs as `nobody`, so if you override `PROM_PORT` it must be
+above 1024.

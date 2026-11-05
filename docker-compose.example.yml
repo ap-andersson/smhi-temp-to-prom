@@ -6,6 +6,5 @@ services:
     ports:
       - 9787:8080
     environment:
-      PROM_PORT: 8080
       SMHI_STATION: 85240
     restart: unless-stopped

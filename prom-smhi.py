@@ -24,6 +24,8 @@ REQUEST_TIMEOUT_SECONDS = 15
 
 # metobs parameter 1 = air temperature, hourly value.
 DEFAULT_PARAMETER = "1"
+# Above 1024, since the container runs as an unprivileged user.
+DEFAULT_PORT = "8080"
 ENDPOINT_TEMPLATE = (
     "https://opendata-download-metobs.smhi.se/api/version/latest"
     "/parameter/{parameter}/station/{station}/period/latest-hour/data.json"
@@ -136,15 +138,19 @@ def next_delay_seconds(consecutive_failures):
 
 def read_config():
     """Resolve configuration from the environment, with positional fallbacks."""
-    port = os.getenv("PROM_PORT") or (sys.argv[1] if len(sys.argv) > 1 else None)
+    port = (
+        os.getenv("PROM_PORT")
+        or (sys.argv[1] if len(sys.argv) > 1 else None)
+        or DEFAULT_PORT
+    )
     station = os.getenv("SMHI_STATION") or (sys.argv[2] if len(sys.argv) > 2 else None)
     parameter = os.getenv("SMHI_PARAMETER", DEFAULT_PARAMETER)
     endpoint = os.getenv("SMHI_ENDPOINT")
 
-    if not port or not (station or endpoint):
+    if not (station or endpoint):
         log.error(
-            "Missing configuration: set PROM_PORT and SMHI_STATION "
-            "(or pass them as the first two arguments)."
+            "Missing configuration: set SMHI_STATION "
+            "(or pass it as the second argument)."
         )
         sys.exit(1)
 
