@@ -23,9 +23,11 @@ GET https://opendata-download-metobs.smhi.se/api/version/latest/parameter/1.json
 | `SMHI_PARAMETER` | no | `1` | metobs parameter (1 = hourly air temperature) |
 | `SMHI_ENDPOINT` | no | — | Full URL, overrides station/parameter |
 
-`PROM_PORT` and `SMHI_STATION` can also be passed as the first two positional
-arguments instead. Note that passing the station positionally means passing the
-port first, so the environment variables are usually easier.
+The station id can also be passed as the only positional argument:
+
+```
+python3 prom-smhi.py 85240
+```
 
 ## Metrics
 

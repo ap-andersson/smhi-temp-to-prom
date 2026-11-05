@@ -137,20 +137,16 @@ def next_delay_seconds(consecutive_failures):
 
 
 def read_config():
-    """Resolve configuration from the environment, with positional fallbacks."""
-    port = (
-        os.getenv("PROM_PORT")
-        or (sys.argv[1] if len(sys.argv) > 1 else None)
-        or DEFAULT_PORT
-    )
-    station = os.getenv("SMHI_STATION") or (sys.argv[2] if len(sys.argv) > 2 else None)
+    """Resolve configuration from the environment, or a positional station id."""
+    port = os.getenv("PROM_PORT", DEFAULT_PORT)
+    station = os.getenv("SMHI_STATION") or (sys.argv[1] if len(sys.argv) > 1 else None)
     parameter = os.getenv("SMHI_PARAMETER", DEFAULT_PARAMETER)
     endpoint = os.getenv("SMHI_ENDPOINT")
 
     if not (station or endpoint):
         log.error(
             "Missing configuration: set SMHI_STATION "
-            "(or pass it as the second argument)."
+            "(or pass the station id as the only argument)."
         )
         sys.exit(1)
 
