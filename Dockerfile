@@ -1,6 +1,13 @@
-FROM python:3.12-slim
+FROM python:3.15-slim
+
 WORKDIR /app
-RUN pip3 install prometheus_client requests
+
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
 COPY prom-smhi.py .
-EXPOSE 80
+
+USER nobody
+EXPOSE 8080
+
 CMD ["python3", "-u", "prom-smhi.py"]
